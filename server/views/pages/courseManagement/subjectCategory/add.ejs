@@ -1,0 +1,139 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Subject Categories</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Subject Category</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../../partials/error'); %>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/subject-category-list" class="btn btn-primary">Back</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add Subject Categories</h3>
+                                </div>
+                                
+                                <form id="subjectform" action="/subject-category-insert" method="POST" enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="name">Subject Name</label>
+                                            <input type="text" name="name" class="form-control" id="name"
+                                                placeholder="Enter Subject Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Categories</label>
+                                            <select class="form-control" name="category_id" id="category-id">
+                                                <option value="">Select Categories</option>
+                                                <%for(var i=0; i< categorys.length; i++) { %>
+                                                    <option value="<%= categorys[i].id %>">
+                                                        <%= categorys[i].name %>
+                                                    </option>
+                                                    <%}%>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Course Categories</label>
+                                            <select class="form-control" name="course_category_id"
+                                                id="course-category-id">
+                                                <option value="">select course category</option>
+
+                                            </select>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label for="file">Upload File</label>
+                                            <input type="file" name="file" class="form-control" id="file">
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label for="video">Upload Video</label>
+                                            <input type="file" name="video" class="form-control" id="video"
+                                                accept="video/mp4,video/x-m4v,video/*">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <textarea class="form-control" id="description" name="description" rows="4"
+                                                cols="50"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>
+            <script>
+                $('#category-id').on('change', function () {
+
+                    var newval = $(this).val();
+                    console.log(newval);
+                    if (newval) {
+
+
+                        $.ajax({
+                            type: "Get",
+                            url: "api/course_category/" + newval,
+                            success: function (result) {
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.item;
+                                var output = ['<option value="" >select course category </option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#course-category-id').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" >select course category type</option>'];
+
+                        $('#course-category-id').html(output.join(''));
+
+                    }
+                });
+            </script>

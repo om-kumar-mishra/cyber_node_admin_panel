@@ -1,0 +1,137 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Batch</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Batch</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/batches-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Batches</h3>
+                                    </div>
+
+                                    <form id="batchform" action="/batches-insert" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Batch Name</label>
+                                                    <input type="text" name="batch_name" class="form-control" id="batch_name"
+                                                        placeholder="Enter Batch Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Select Course Categories</label>
+                                                <select class="form-control" name="course_category_id" id="course_category_id">
+                                                    <option value="">Select Course Categories</option>
+                                                    <%for(var i=0; i< coursecategories.length; i++) { %>
+                                                        <option value="<%= coursecategories[i].id %>">
+                                                            <%= coursecategories[i].name %>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="customCheckbox1" class="">Select Days</label>
+                                                    <br />
+                                                    <input class="" name="mon" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">MON</label>
+                                                    <input class="" name="tue" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">TUE</label>
+                                                    <input class="" name="wed" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">WED</label>
+                                                    <input class="" name="thu" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">THU</label>
+                                                    <input class="" name="fri" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">FRI</label>
+                                                    <input class="" name="sat" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">SAT</label>
+                                                    <input class="" name="sun" type="checkbox" id="" value="1">
+                                                    <label for="customCheckbox1" class="">SUN</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Start Time</label>
+                                                    <input type="time" name="start_time" class="form-control"
+                                                        id="start_time" placeholder="Enter Start Time">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">End Time</label>
+                                                    <input type="time" name="end_time" class="form-control"
+                                                        id="end_time" placeholder="Enter End Time">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="4" cols="50"></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../partials/footer'); %>
+            <script type="text/javascript">
+                $('#color-code').spectrum({
+                    type: "component"
+                });
+
+                $(".sp-choose").on('click', function (e) {
+                    const getcol = $("#color-code").spectrum("get");
+                    const color = getcol.toHexString();
+                    $('#color_code').val(color);
+
+                })
+            </script>

@@ -1,0 +1,133 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Course Categories</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Course Categories</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/course-category-list" class="btn btn-primary">Back</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <%- include('../../../partials/error'); %>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit Course Categories</h3>
+                                    </div>
+
+                                    <form id="courseform" action="/course-category-update" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Subject Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name"
+                                                        placeholder="Enter Course Categorie Name"
+                                                        value="<%= item.name %>">
+                                                    <input type="hidden" name="id" value="<%= item.id %>">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="color-code">Course Categories Color</label>
+                                                    <input type="hidden" name="color_code"
+                                                        value="<%= item.color_code %>" id="color_code">
+                                                    <input class="form-control" value='<%= item.color_code %>'
+                                                        id="color-code" required>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Select Categories</label>
+                                                <select class="form-control" name="category_id" id="category-id">
+                                                   
+                                                    <%for(var i=0; i< categorys.length; i++) { var
+                                                        catId=categorys[i].id; %>
+                                                        <option <% if(catId==item.category_id) {%>
+                                                            selected="selected" <%}%> value="<%= categorys[i].id %>">
+                                                                    <%= categorys[i].name %>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <% if(item.video) {%>
+                                                    <label for="uploadvideo">Uploaded Video</label>
+                                                    <div class="input-group">
+                                                        <video id="uploadvideo" width="200" height="200" controls>
+                                                            <source src="<%= item.video %>" type="video/mp4">
+                                                        </video>
+                                                    </div>
+                                                    <%}%>
+
+                                                        <label for="video">Upload Video</label>
+                                                        <input type="file" name="coursevideo" class="form-control"
+                                                            id="video" accept="video/mp4,video/x-m4v,video/*">
+                                                        <input type="hidden" name="oldvideo" value="<%= item.video %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="4" cols="50"><%= item.description %></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>
+            <script type="text/javascript">
+                $('#color-code').spectrum({
+                    type: "component"
+                });
+
+                $(".sp-choose").on('click', function (e) {
+                    const getcol = $("#color-code").spectrum("get");
+                    const color = getcol.toHexString();
+                    $('#color_code').val(color);
+
+                })
+            </script>

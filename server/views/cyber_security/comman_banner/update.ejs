@@ -1,0 +1,126 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <%- toasts %>
+            <div class="content-wrapper">
+
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0">Update Comman Banner</h1>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Update Banner</li>
+                            </ol>
+                        </div> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <% if (typeof successMessage !='undefined' && successMessage) { %>
+                    <p class="alert alert-success">
+                        <%- successMessage %>
+                    </p>
+                    <% } else if(typeof errorMessage !='undefined' && errorMessage) { %>
+                        <p class="alert alert-danger">
+                            <%- errorMessage %>
+                        </p>
+                        <% } %>
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Update Comman Banner</h3>
+                                                </div>
+
+                                                <form id="bannerForm" action="/update-comman-banner-store" method="POST"
+                                                    enctype="multipart/form-data">
+
+                                                    <div class="card-body">
+                                                        <input type="hidden" name="b_Id"
+                                                            value="<%= updateBanner?.id %>">
+
+                                                        <!-- <div class="form-group">
+                                                        <label for="exampleInputEmail1">Title*</label>
+                                                        <input type="text" value="<%= updateBanner?.title %> " name="bannerTitle" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter  title" required >
+                                                    </div> -->
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Image:</label>
+                                                                    <input type="file" name="image" class="form-control"
+                                                                    onchange="return validate_fileupload(this)"
+                                                                        id="exampleInputEmail1"
+                                                                        placeholder="Enter  image">
+                                                                    <input type="hidden"
+                                                                        value="<%= updateBanner?.image %>"
+                                                                        name="oldImage">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>
+                                                                    <img style="max-height: 100px; min-height: 100px; margin-top: 2px;"
+                                                                        src="/uploaded-files/<%= updateBanner?.image %>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+
+
+                                                        <div class="card-footer">
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </section>
+
+            </div>
+            <script>
+
+                let d = CKEDITOR.replace('details');
+            //     function validate_fileupload(input_element)
+            // {
+            // var fileName = input_element.value;
+            // var allowed_extensions = new Array("jpg","png","jpeg");
+            // var file_extension = fileName.split('.').pop().toLowerCase(); 
+
+            // for(var i = 0; i <= allowed_extensions.length; i++)
+            // {
+            // if(allowed_extensions[i]==file_extension)
+            // {
+            //     return true; // valid file extension
+            // }
+            // }
+            // alert('Invalid file type, please select file type of .png, .jpeg and .jpg');
+            // input_element.value = "";
+            // return false;
+            // }
+
+            </script>
+            <%- include('../../partials/footer'); %>

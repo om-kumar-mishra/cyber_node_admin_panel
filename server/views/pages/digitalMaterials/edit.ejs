@@ -1,0 +1,306 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Digital Material Videos</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Digital Material Videos</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/digital-material-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Digital Material Videos</h3>
+                                    </div>
+                                    <form id="recordedVideoForm" action="/digital-material-update" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <input type="hidden" name="id" value="<%= digitalMaterialData.id %>">
+                                                    <label>Select Students</label>
+                                                    <select class="form-control" name="student_id" id="student_id">
+                                                        <option value="" selected disabled>Select Students</option>
+                                                        <%for(var i=0; i< students.length; i++) { var
+                                                            stuId=students[i].id; %>
+                                                            <option <%=( digitalMaterialData.student_id==stuId ) ? 'selected'
+                                                                : '' %> value="<%= students[i].id %>">
+                                                                    <%= students[i].firstName+' '+students[i].lastName %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select Categories</label>
+                                                    <select class="form-control" name="category_id" id="category-id">
+                                                        <option value="" selected disabled>Select Categories</option>
+                                                        <%for(var i=0; i< categories.length; i++) { 
+                                                            var catId = categories[i].id; %>
+                                                            <option value="<%= categories[i].id %>" 
+                                                                <%= ( digitalMaterialData.category_id==catId ) ? ' selected'
+                                                                        : '' %>>
+                                                                        <%= categories[i].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Course Categories</label>
+                                                    <select class="form-control" name="course_category_id"
+                                                        id="course-category-id">
+                                                        <option value="">select course category</option>
+                                                        <%for(var j=0; j< coursecategories.length; j++) { var
+                                                            courseCatId=coursecategories[j].id; %>
+                                                            <option <%=(digitalMaterialData.course_category_id==courseCatId )
+                                                                ? 'selected' : '' %> value="<%= coursecategories[j].id
+                                                                    %>"><%= coursecategories[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col">
+                                                    <label>Select Subject Categories</label>
+                                                    <select class="form-control" name="subject_category_id"
+                                                        id="subject_category_id">
+                                                        <option value="">Select Subject Categories</option>
+                                                        <%for(var j=0; j< subjectcategories.length; j++) { var
+                                                            subjectCatId=subjectcategories[j].id; %>
+                                                            <option <%=(digitalMaterialData.subject_category_id==subjectCatId
+                                                                ) ? 'selected' : '' %> value="<%=
+                                                                    subjectcategories[j].id %>"><%=
+                                                                        subjectcategories[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Chapter</label>
+                                                    <select class="form-control" name="chapter_id" id="chapter_id">
+                                                        <option value="">Select Chapter</option>
+                                                        <%for(var j=0; j< chapters.length; j++) { 
+                                                            var chaptersId=chapters[j].id; %>
+                                                            <option <%=(digitalMaterialData.chapter_id==chaptersId )
+                                                                ? 'selected' : '' %> value="<%= chapters[j].id %>"><%=
+                                                                        chapters[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select File Type</label>
+                                                    <select class="form-control" name="file_type"
+                                                        id="file_type">
+                                                        <option value="image" <%=(digitalMaterialData.file_type=="image" )
+                                                                ? 'selected' : '' %>>Image</option>
+                                                        <option value="docs" <%=(digitalMaterialData.file_type=="docs" )
+                                                                ? 'selected' : '' %>>Docs</option>
+                                                        <option value="audio" <%=(digitalMaterialData.file_type=="audio" )
+                                                                ? 'selected' : '' %>>Audio</option>
+                                                    </select>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                 <% if(digitalMaterialData.file_type == 'audio') { %>
+                                                        <% if(digitalMaterialData.file != null) { %>
+                                                            <audio width="100%" height="auto" controls>
+                                                                <source src="<%= digitalMaterialData.file %>" type="audio/mpeg">
+                                                            </audio>
+                                                        <%} else{ %>
+                                                                -
+                                                    <% } } else if(digitalMaterialData.file_type == 'image') { %>
+                                                        <% if(digitalMaterialData.file != null) { %>
+                                                            <img src="<%= digitalMaterialData.file %>"
+                                                            alt="<%= digitalMaterialData.file %>"
+                                                            class="img-circle img-size-64 ">
+                                                        <%} else{ %>
+                                                                -
+                                                    
+                                                        <% } } else if(digitalMaterialData.file_type == 'docs') { %>
+                                                            <% if(digitalMaterialData.file != null) { %>
+                                                                <embed src="<%= digitalMaterialData.file %>" type="application/pdf"   width="100%" height="auto">
+                                                            <%} else { %>
+                                                                    -
+                                                            <% } %>
+                                                        <% } %>
+                                                           
+                                                <div class="form-group col image" >
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="image"
+                                                        placeholder="Enter Digital Material Name" accept="image/png, image/jpeg, image/*">
+                                                </div>
+                                                <div class="form-group col docs" style="display:none;">
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="docs"
+                                                        placeholder="Enter Digital Material Name" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                                </div>
+                                                <div class="form-group col audio" style="display:none;">
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="audio"
+                                                        placeholder="Enter Digital Material Name" accept="audio/*">
+                                                </div>
+                                                <div class="form-group col" >
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" name="description"
+                                                        rows="4" cols="50"><%= digitalMaterialData.description %></textarea>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        </div>
+        <%- include('../../partials/footer'); %>
+            <script>
+                $('#category-id').on('change', function () {
+                    var newval = $(this).val();
+                    console.log(newval);
+                    if (newval) {
+                        $.ajax({
+                            type: "Get",
+                            url: "api/course_category/" + newval,
+                            success: function (result) {
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.item;
+                                var output = ['<option value="" selected desabled>Select Course Category </option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#course-category-id').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" selected desabled>Select Course Category</option>'];
+
+                        $('#course-category-id').html(output.join(''));
+
+                    }
+                });
+
+                $('#course-category-id').on('change', function () {
+                    var newval = $(this).val();
+                    console.log(newval);
+                    if (newval) {
+                        $.ajax({
+                            type: "Get",
+                            url: "api/subject_category/" + newval,
+                            success: function (result) {
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.item;
+                                var output = ['<option value="" selected desabled>Select Subject Category </option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#subject_category_id').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" selected desabled>Select Subject Category</option>'];
+
+                        $('#subject_category_id').html(output.join(''));
+
+                    }
+                });
+                $('#subject_category_id').on('change', function () {
+                    var newval = $(this).val();
+                    console.log(newval, 'subject-category-id');
+                    if (newval) {
+                        $.ajax({
+                            type: "Get",
+                            url: "api/chapter/" + newval,
+                            success: function (result) {
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.item;
+                                var output = ['<option value="" selected desabled>Select Chapter </option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#chapter_id').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" selected desabled>Select Chapter</option>'];
+
+                        $('#chapter_id').html(output.join(''));
+
+                    }
+                });
+                $('#file_type').on('change', function () {
+                var videoType = $(this).val();
+                console.log(videoType);
+
+                if (videoType.length > 0) {
+                    if (videoType == 'image') {
+                        $('.image').show();
+                        $('.audio').hide()
+                        $('.docs').hide()
+                    } else if(videoType == 'docs') {
+                        $('.docs').show();
+                        $('.image').hide()
+                        $('.audio').hide()
+                    } else if(videoType == 'audio') {
+                        $('.audio').show();
+                        $('.docs').hide()
+                        $('.image').hide()
+                    }
+
+                } else {
+                    $('.image').hide();
+                    
+                }
+
+            });
+            </script>

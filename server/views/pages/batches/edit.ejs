@@ -1,0 +1,138 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Batch</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Batch</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/batches-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit Batches</h3>
+                                    </div>
+
+                                    <form id="batchform" action="/batches-update" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Batch Name</label>
+                                                    <input type="text" name="batch_name" class="form-control"
+                                                        id="batch_name" value="<%= item.title %>"
+                                                        placeholder="Enter Batch Name">
+                                                    <input type="hidden" name="id" value="<%= item.id %>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Select Course Categories</label>
+                                                <select class="form-control" name="category_id" id="category-id">
+                                                    <option value="">Select Course Categories</option>
+                                                    <%for(var i=0; i< coursecategories.length; i++) { %>
+                                                        <option value="<%= coursecategories[i].id %>"
+                                                            <%=(coursecategories[i].id==item.course_category_id)
+                                                            ? 'selected' : '' %> >
+                                                            <%= coursecategories[i].name %>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="customCheckbox1" class="">Select Days</label>
+                                                    <br />
+                                                    <input class="" name="mon" type="checkbox" id="" <%=item.mon=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">MON</label>
+                                                    <input class="" name="tue" type="checkbox" id="" <%=item.tue=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">TUE</label>
+                                                    <input class="" name="wed" type="checkbox" id="" <%=item.wed=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">WED</label>
+                                                    <input class="" name="thu" type="checkbox" id="" <%=item.thu=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">THU</label>
+                                                    <input class="" name="fri" type="checkbox" id="" <%=item.fri=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">FRI</label>
+                                                    <input class="" name="sat" type="checkbox" id="" <%=item.sat=='1'
+                                                        ? 'checked' : '' %>value="1">
+                                                    <label for="customCheckbox1" class="">SAT</label>
+                                                    <input class="" name="sun" type="checkbox" id="" <%=item.sun=='1'
+                                                        ? 'checked' : '' %> value="1">
+                                                    <label for="customCheckbox1" class="">SUN</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Start Time</label>
+                                                    <input type="time" name="start_time" class="form-control"
+                                                        id="start_time" value="<%= item.start_time %>"
+                                                        placeholder="Enter Start Time">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">End Time</label>
+                                                    <input type="time" name="end_time" class="form-control"
+                                                        id="end_time" value="<%= item.end_time %>"
+                                                        placeholder="Enter End Time">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="4" cols="50"><%= item.description %></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../partials/footer'); %>

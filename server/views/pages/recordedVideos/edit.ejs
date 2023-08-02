@@ -1,0 +1,236 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Recorded Video</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Recorded Video</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/recorded-video-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Recorded Video</h3>
+                                    </div>
+                                    <form id="recordedVideoForm" action="/recorded-video-update" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Students</label>
+                                                    <input type="hidden" name="id" value="<%= recordedVideodata.id %>">
+                                                    <select class="form-control" name="student_id" id="student_id">
+                                                        <option value="" selected disabled>Select Students</option>
+                                                        <%for(var i=0; i< students.length; i++) { 
+                                                            var stuId = students[i].id; %>
+                                                            <option <%= ( recordedVideodata.student_id==stuId ) ? 'selected' : '' %> value="<%= students[i].id %>">
+                                                                <%= students[i].firstName+' '+students[i].lastName %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select Categories</label>
+                                                    <select class="form-control" name="category_id" id="category-id">
+                                                        <option value="" selected disabled>Select Categories</option>
+                                                        <%for(var i=0; i< categories.length; i++) { 
+                                                            var catId = categories[i].id; %>
+                                                            <option value="<%= categories[i].id %>" 
+                                                                <%= ( recordedVideodata.category_id==catId ) ? 'selected' : '' %>>
+                                                                <%= categories[i].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Course Categories</label>
+                                                    <select class="form-control" name="course_category_id"
+                                                        id="course-category-id">
+                                                        <option value="">select course category</option>
+                                                        <%for(var j=0; j< coursecategories.length; j++) { 
+                                                            var courseCatId=coursecategories[j].id; %>
+                                                            <option <%=(recordedVideodata.course_category_id==courseCatId ) ? 'selected' : ''
+                                                                %> value="<%= coursecategories[j].id %>"><%= coursecategories[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col">
+                                                    <label>Select Subject Categories</label>
+                                                    <select class="form-control" name="subject_category_id"
+                                                        id="subject_category_id">
+                                                        <option value="">Select Subject Categories</option>
+                                                        <%for(var j=0; j< subjectcategories.length; j++) { 
+                                                            var subjectCatId=subjectcategories[j].id; %>
+                                                            <option <%=(recordedVideodata.subject_category_id==subjectCatId ) ? 'selected' : '' %> value="<%= subjectcategories[j].id %>"><%= subjectcategories[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Chapter</label>
+                                                    <select class="form-control" name="chapter_id"
+                                                        id="chapter_id">
+                                                        <option value="">Select Chapter</option>
+                                                        <%for(var j=0; j< chapters.length; j++) { 
+                                                            var chaptersId=chapters[j].id; %>
+                                                            <option <%=(recordedVideodata.chapter_id==chaptersId ) ? 'selected' : '' %> value="<%= chapters[j].id %>"><%= chapters[j].name %>
+                                                            </option>
+                                                            <%}%>
+                                                </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <% if(recordedVideodata.file) { %>
+                                                            <label for="uploadvideo">Uploaded Video</label>
+                                                            <div class="input-group">
+                                                                <video id="uploadvideo" width="200" height="200" controls>
+                                                                    <source src="<%= recordedVideodata.file %>" type="video/mp4">
+                                                                </video>
+                                                            </div>
+                                                        <% } %>
+                                                    <label for="name">Recorded Video</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="file"
+                                                        placeholder="Enter Recorded Video Name">
+                                                        <input type="hidden" name="oldupload_file" value="<%= recordedVideodata.file %>">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" name="description"
+                                                        rows="4" cols="50"><%= recordedVideodata.description %></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        </div>
+        <%- include('../../partials/footer'); %>
+        <script>
+            $('#category-id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval);
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/course_category/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Course Category </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#course-category-id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Course Category</option>'];
+
+                    $('#course-category-id').html(output.join(''));
+
+                }
+            });
+
+            $('#course-category-id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval);
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/subject_category/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Subject Category </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#subject_category_id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Subject Category</option>'];
+
+                    $('#subject_category_id').html(output.join(''));
+
+                }
+            });
+            $('#subject_category_id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval,'subject-category-id');
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/chapter/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Chapter </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#chapter_id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Chapter</option>'];
+
+                    $('#chapter_id').html(output.join(''));
+
+                }
+            });
+        </script>

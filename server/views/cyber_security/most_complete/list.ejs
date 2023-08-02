@@ -1,0 +1,180 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+            <%- include("../../notify"); %> 
+            <%- toasts %>
+
+            <section  class="bg-dark m-2 "  >
+                <h3 class="ml-4 " style="margin-top: 10px;">Add Main Title And Description</h3>
+                <% if(most_completed_title.length < 1) {%>
+                <form  class="" action="/most-completed-main-title-store" method="POST">
+        
+                    <div class="card-body">
+        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title*</label>
+                            <input type="text" name="title" class="form-control"
+                                id="exampleInputEmail1" placeholder="Enter Bannner title" required>
+                        </div>
+        
+                    
+                
+                    <label for="exampleInputPassword1">Descrition</label>
+                    <div class="form-group " >
+                        
+                        <textarea name="description" id="description" class="form-control"
+                            id="details" cols="20" rows="5" required></textarea>
+                    </div>
+                    
+                    
+        
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+           
+            <% }%>
+        
+        
+        
+        <!-- listing of cyber security -->
+        
+        
+            <div class="">
+                <div class="card text-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Main Title And Description List</h3>
+                    </div>
+        
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Title</th>
+                                    <th>Description</th>                                     
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(most_completed_title.length){ most_completed_title.forEach((element,index)=>{%>
+                             
+                                    <tr>
+                                        <td>
+                                            <%= index+1 %>
+                                        </td>
+                                        <td>
+                                            <%= element.title %>
+                                        </td>
+                                        
+                                        <td>
+                                            <%- element.description %>
+                                          
+                                        </td>
+                                        <td>
+        
+                                            <a href="/delete-most-completed-main-title?id=<%= element.id %>" ><i class="fa fa-trash-o" style="font-size:25px; color:red" title="delete" ></i></a>
+                                  
+                                            <a href="/most-completed-main-title-update?id=<%= element.id %>" ><i class='fas fa-pen-nib' style="font-size:25px;" title="Edit"></i></a>
+                                         </td>                                          
+                                    </tr>
+                                    <%  })  } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Most Complete</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Most Complete</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+           
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <!-- <h1>Course Categories</h1> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <% if(list.length < 4) {%>
+                                    <a href="/most_complete" class="btn btn-primary">Add</a>
+                                    <% }%>
+                                
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+           
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Most Complete</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Icon</th>                               
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(list.length){ list.forEach((element,index)=>{%>
+                                 
+                                        <tr>
+                                            <td>
+                                                <%= index+1 %>
+                                            </td>
+                                            <td>
+                                                <%- element.title %>
+                                            </td>
+                                            <td>
+                                                <%- element.description %>
+                                            </td>
+                                            <td>
+                                                <img style="max-height: 50px; min-height: 50px;" src="/uploaded-files/<%= element.icon %>">
+                                            </td>
+                                            <td>
+                                                <a href="/delete-most-complete?mostCompleteId=<%= element.id %>" ><i class="fa fa-trash-o" style="font-size:25px; color:red" title="delete"></i></a>
+                
+                                                <a href="/update-most-complete?mostCompleteId=<%= element.id %>" ><i class='fas fa-pen-nib' style="font-size:25px;" title="delete"></i></a>
+                                             </td>
+                                            
+                                           
+                                        </tr>
+                                        <%  })  } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <%- include('../../partials/footer'); %>
+      
+        

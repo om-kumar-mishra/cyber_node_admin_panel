@@ -1,0 +1,154 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Update Industry Details</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Update Industry Details</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Industry Details</h3>
+                                        <a href="/industry-details-list" class="btn btn-light btn-sm"
+                                            style="float: right; color: #000;">Back</a>
+                                    </div>
+
+                                    <form id="bannerForm" action="/industry-detailse-update-store" method="POST"
+                                        enctype="multipart/form-data">
+
+                                        <div class="card-body">
+
+                                            <div class="form-group">
+                                                <input type="hidden" value="<%= update_data.id %>"
+                                                    name="securityServiceId">
+                                                <input type="hidden" value="<%= update_data.icon %>" name="oldIcon">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Title: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" value="<%= update_data.title %>"
+                                                                name="title" class="form-control"
+                                                                id="exampleInputEmail1"
+                                                                placeholder="Enter Industry title" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Sub Title: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="sub_title"
+                                                                value="<%= update_data.sub_title %>"
+                                                                class="form-control" id="exampleInputEmail1"
+                                                                placeholder="Enter Industry sub title" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6"><label for="exampleInputEmail1">Icon</label>
+                                                        <input type="file" name="icon" class="form-control" onchange="return validate_fileupload(this)"
+                                                            id="exampleInputEmail1" placeholder="Enter  title">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="my-2">
+                                                            <img style="max-height: 100px; min-height: 100px; margin-top: 2px;"
+                                                                src="/uploaded-files/<%= update_data.icon %> ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Image</label>
+                                                            <input type="file" name="image" class="form-control" onchange="return validate_fileupload(this)"
+                                                                id="exampleInputEmail1" placeholder="Enter image">
+                                                            <input type="hidden" value="<%= update_data.image %>"
+                                                                name="oldImage">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div>
+                                                            <img style="max-height: 100px; min-height: 100px;"
+                                                                src="/uploaded-files/<%= update_data.image %> ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <label for="exampleInputPassword1">Description</label>
+                                                <div class="form-group ">
+
+                                                    <textarea name="description" id="description" class="form-control"
+                                                        id="details" cols="20"
+                                                        rows="3"><%- update_data.description %></textarea>
+                                                </div>
+
+                                                <!-- <label for="exampleInputPassword1">Descrition</label>
+                                                <div class="form-group " >
+                                                    
+                                                    <textarea name="description2" id="description2" class="form-control"
+                                                        id="details" cols="20" rows="5" required><%- update_data.description2 %></textarea>
+                                                </div>
+                                                 -->
+
+
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+
+        <script>
+
+            let d = CKEDITOR.replace('description');
+            let d2 = CKEDITOR.replace('description2');
+
+
+        </script>
+        <%- include('../../partials/footer'); %>

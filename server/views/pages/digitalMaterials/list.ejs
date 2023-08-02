@@ -1,0 +1,188 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Digital Materials</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Digital Materials</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <!-- <h1>Course Categories</h1> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/add-digital-material" class="btn btn-primary">Add</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <%- include('../../partials/error'); %>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Digital Materials List</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th style="min-width: 109px;">Digital Materials</th>
+                                            <th>Student</th>
+                                            <th>Categorie</th>
+                                            <th>Course Categorie</th>
+                                            <th>Subject</th>
+                                            <th>Chapter</th>
+                                            <th>Status</th>
+                                            <th style="min-width: 175px">Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% for(var j=0; j< digitalMaterialData.length; j++) { %>
+
+                                            <tr>
+                                                <td>
+                                                    <%= j+ 1 %>
+                                                </td>
+
+                                                <td>
+                                                    <% if(digitalMaterialData[j].file_type == 'audio') { %>
+                                                        <% if(digitalMaterialData[j].file != null) { %>
+                                                            <audio width="100%" height="auto" controls>
+                                                                <source src="<%= digitalMaterialData[j].file %>" type="audio/mpeg">
+                                                            </audio>
+                                                        <%} else{ %>
+                                                                -
+                                                    <% } } else if(digitalMaterialData[j].file_type == 'image') { %>
+                                                        <% if(digitalMaterialData[j].file != null) { %>
+                                                            <img src="<%= digitalMaterialData[j].file %>"
+                                                            alt="<%= digitalMaterialData[j].file %>"
+                                                            class="img-circle img-size-32 mr-2">
+                                                        <%} else{ %>
+                                                                -
+                                                    
+                                                        <% } } else if(digitalMaterialData[j].file_type == 'docs') { %>
+                                                            <% if(digitalMaterialData[j].file != null) { %>
+                                                                <embed src="<%= digitalMaterialData[j].file %>" type="application/pdf"   width="100%" height="auto">
+                                                            <%} else { %>
+                                                                    -
+                                                            <% } %>
+                                                        <% } %>
+                                                </td>
+                                                <td>
+                                                    <%= digitalMaterialData[j].student_id ?
+                                                        digitalMaterialData[j].students['firstName']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%= digitalMaterialData[j].category_id ?
+                                                        digitalMaterialData[j].categories['name']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%= digitalMaterialData[j].course_category_id ?
+                                                        digitalMaterialData[j].coursecategories['name']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%= digitalMaterialData[j].subject_category_id ?
+                                                        digitalMaterialData[j].subjectcategories['name']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%= digitalMaterialData[j].chapter_id ?
+                                                        digitalMaterialData[j].chapters['name']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%if(digitalMaterialData[j].status=='A' ) {%>
+                                                        <span class="badge bg-success ">Active</span>
+                                                        <%}else{%>
+                                                            <span class="badge bg-danger">Inactive</span>
+                                                            <%}%>
+                                                </td>
+                                                <td>
+                                                    <a href="/edit-digital-material?id=<%= digitalMaterialData[j].id %>"
+                                                        class="btn btn-warning text-white"
+                                                        data-cat-id="<%= digitalMaterialData[j].id %>">
+                                                        Edit
+                                                    </a>
+                                                    <a role="button" id="changestatus" class="btn btn-secondary"
+                                                        data-cat-id="<%= digitalMaterialData[j].id %>"
+                                                        data-value="<%= digitalMaterialData[j].status %>">
+                                                        Change Status
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../partials/footer'); %>
+            <script>
+                $('body').on('click', '#changestatus', function (e) {
+                    e.preventDefault();
+                    const subj_status = $(this).attr("data-value");
+                    const subj_id = $(this).attr("data-cat-id");
+
+                    swal({
+                        title: "Are you sure change Status?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                change_status(subj_id, subj_status);
+
+                                swal("Class Status  Updated Successfully", {
+                                    icon: "success",
+                                }).then(function () {
+                                    location.reload();
+                                });
+
+                            } else {
+                                swal("Your Data is safe!");
+                            }
+                        });
+
+                })
+                function change_status(subj_id, subj_status) {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var rstext = JSON.parse(this.responseText);
+                            var rstext = rstext.message;
+
+                        }
+                    };
+
+                    xmlhttp.open("POST", "/change-digital-material-status/" + subj_id + "/change", true);
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xmlhttp.send(JSON.stringify({ 'id': subj_id, 'status': subj_status }));
+                }
+            </script>

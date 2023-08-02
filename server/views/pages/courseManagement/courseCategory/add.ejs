@@ -1,0 +1,117 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Course Categories</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Course Category</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/course-category-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Course Categories</h3>
+                                    </div>
+
+                                    <form id="courseform" action="/course-category-insert" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Course Categories Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name"
+                                                        placeholder="Enter Course Categorie Name">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="color-code">Course Categories Color</label>
+                                                    <input type="hidden" name="color_code" value="" id="color_code">
+                                                    <input   class="form-control" value=''
+                                                        id="color-code" name="colorcode">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Select Categories</label>
+                                                <select class="form-control" name="category_id" id="category-id">
+                                                    <option value="">Select Categories</option>
+                                                    <%for(var i=0; i< categorys.length; i++) { %>
+                                                        <option value="<%= categorys[i].id %>">
+                                                            <%= categorys[i].name %>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="video">Upload Video</label>
+                                                <input type="file" name="coursevideo" class="form-control" id="video"
+                                                    accept="video/mp4,video/x-m4v,video/*">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="4" cols="50"></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>
+            <script type="text/javascript">
+                $('#color-code').spectrum({
+                    type: "component"
+                });
+
+                $(".sp-choose").on('click', function (e) {
+                    const getcol = $("#color-code").spectrum("get");
+                    const color = getcol.toHexString();
+                    $('#color_code').val(color);
+                    
+                })
+            </script>

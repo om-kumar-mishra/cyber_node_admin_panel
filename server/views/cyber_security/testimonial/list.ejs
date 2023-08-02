@@ -1,0 +1,170 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+            <%- include("../../notify"); %>
+                <%- toasts %>
+
+
+
+
+
+
+
+
+
+
+                    <div class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0">Our Advisory Board</h1>
+                                </div>
+                                <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Our Advisory Board</li>
+                            </ol>
+                        </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <section class=" ">
+                        <h4 class="ml-4 " style="margin-top: 10px;">Our Advisory Board Main Title And Description</h4>
+
+                        <form id="bannerForm" action="/our-advisory-board-main-title-update-store" method="POST">
+
+                            <div class="card-body">
+                                <input type="hidden" value="<%= main_title?.id %>" name="id">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Main Title: <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" value="<%= main_title?.title %> " name="title"
+                                                class="form-control" id="exampleInputEmail1"
+                                                placeholder="Enter title" required>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <label for="exampleInputPassword1">Main Description</label>
+                                <div class="form-group ">
+
+                                    <textarea name="description" id="description" class="form-control" id="details"
+                                        cols="20" rows="5" required><%- main_title?.description %></textarea>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                        </form>
+                    </section>
+
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Our Advisory Board List</h3>
+                                    <a href="/add-our-advisory-board" class="btn btn-primary btn-sm"
+                                        style="float: right;">Add</a>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Name</th>
+                                                <th>Image </th>
+                                                <th>Message</th>
+                                                <th>Designation</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(testimonial_list.length){ testimonial_list.forEach((element,index)=>
+                                                {%>
+
+                                                <tr>
+                                                    <td>
+                                                        <%= index+1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= element.Name %>
+                                                    </td>
+                                                    <td>
+                                                        <img style="max-height: 50px; min-height: 50px;"
+                                                            src="/uploaded-files/<%= element.image %> ">
+                                                    </td>
+                                                    <td>
+                                                        <%- element.message %>
+
+                                                    </td>
+                                                    <td>
+                                                        <%- element.designation %>
+
+                                                    </td>
+
+
+                                                    <td>
+                                                        <a href="#" data-value="<%=element.id%>" class="deleteUser"><i
+                                                                class="fa fa-trash-o" style="font-size:25px; color:red"
+                                                                title="delete"></i></a>
+
+                                                        <a href="/update-our-advisory-board?id=<%= element.id %>"><i
+                                                                class='fas fa-pen-nib' style="font-size:25px;"
+                                                                title="Edit"></i></a>
+                                                    </td>
+
+
+                                                </tr>
+                                                <% }) } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        </div>
+        <script>
+            $(".deleteUser").on("click", function () {
+                swal({
+                    title: "Are you sure want to Delete?",
+                    text: "Once deleted, you will not be able to see this Advisory Board again!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // console.log("$(this).val()", $(this).val());
+                        var id = $(this).data("value");
+                        // console.log(`/delete-service-box?id=${id}`);
+                        $.ajax({
+                            url: `/delete-our-advisory-board?id=${id}`,
+                            type: 'GET',
+                            // data: formData,
+                            async: false,
+                            success: function (data) {
+                                swal("Advisory Board has been deleted!", {
+                                    icon: "success",
+
+                                }).then(() => {
+                                    window.location.reload()
+                                });
+
+
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                });
+            });
+        </script>
+        <%- include('../../partials/footer'); %>

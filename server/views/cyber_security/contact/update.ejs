@@ -1,0 +1,195 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+    <%- toasts %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Setting</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Update Contact</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Setting</h3>
+                                    </div>
+
+                                    <form id="bannerForm" action="/update-setting-store" method="POST">
+
+                                        <div class="card-body">
+                                            <input type="hidden" name="contactId" value="<%= update_contact?.id %>">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Address: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" value="<%= update_contact?.address %>"
+                                                            name="address" class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter contact address" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Email: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="email" value="<%= update_contact?.email %>"
+                                                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$"
+                                                            name="email" class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Phone Number: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" value="<%= update_contact?.phone %>"
+                                                            maxlength="10" minlength="10"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                            name="phone" class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter phone number" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Fax: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" value="<%= update_contact?.fax %>"
+                                                            name="fax" class="form-control" maxlength="10"
+                                                            minlength="10"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                            id="exampleInputEmail1" placeholder="Enter fax" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Facebook: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text"
+                                                            pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                                                            title="Enter correct formate url 'https://example.com'"
+                                                            value="<%= update_contact?.facebook %>" name="facebook"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter facebook link" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Instagram: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text"
+                                                            pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                                                            title="Enter correct formate url 'https://example.com'"
+                                                            value="<%= update_contact?.instagram %>" name="instagram"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter Instagram link" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">LinkedIn: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text"
+                                                            pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                                                            title="Enter correct formate url https://example.com"
+                                                            value="<%= update_contact?.linkedIn %>" name="linkedIn"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter LinkedIn link" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Twitter: <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text"
+                                                            pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                                                            title="Enter correct formate url https://example.com"
+                                                            value="<%= update_contact?.twitter %>" name="twitter"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter Twitter link" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <label for="exampleInputPassword1">Summary: <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="form-group ">
+
+                                                <textarea name="details" id="details" class="form-control" id="details"
+                                                    cols="20" rows="5"><%- update_contact?.summary %></textarea>
+                                            </div>
+
+
+
+
+
+
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+
+
+        <script>
+            let d = CKEDITOR.replace('details');       
+        </script>
+
+        <%- include('../../partials/footer'); %>

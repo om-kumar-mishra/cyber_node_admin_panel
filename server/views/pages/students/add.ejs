@@ -1,0 +1,329 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Students</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Students</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/students-list" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Student</h3>
+                                    </div>
+
+                                    <form id="studentform" action="/student-insert" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <h4>Student Details</h4>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">First Name</label>
+                                                    <input type="text" name="firstName" class="form-control"
+                                                        id="firstName" placeholder="Enter First Name">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Last Name</label>
+                                                    <input type="text" name="lastName" class="form-control"
+                                                        id="batch_name" placeholder="Enter Last Name">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Email</label>
+                                                    <input type="email" name="email" class="form-control"
+                                                        id="batch_name" placeholder="Enter Email">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Mobile</label>
+                                                    <input type="text" name="mobile_no" class="form-control"
+                                                        id="batch_name" placeholder="Enter Mobile">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Date of Birth</label>
+                                                    <input type="date" name="dob" class="form-control" id="batch_name"
+                                                        placeholder="Enter DOB">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Gender</label>
+                                                    <select class="form-control" name="gender" id="gender">
+                                                        <option value="" selected disabled>Select Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Father's Name</label>
+                                                    <input type="text" name="fathersName" class="form-control"
+                                                        id="fathersName" placeholder="Enter Father's Name">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Mother's Name</label>
+                                                    <input type="text" name="mothersName" class="form-control"
+                                                        id="mothersName" placeholder="Enter Mother's Name">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Address</label>
+                                                    <textarea name="address" id="address" class="form-control" cols="30"
+                                                        rows="2"></textarea>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select Boards</label>
+                                                    <select class="form-control" name="board_id" id="board_id">
+                                                        <option value="" selected disabled>Select Board</option>
+                                                        <%for(var i=0; i< boards.length; i++) { %>
+                                                            <option value="<%= boards[i].id %>">
+                                                                <%= boards[i].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Country</label>
+                                                    <select class="form-control" name="country_id" id="country-select">
+                                                        <option value="" selected disabled>Select Country</option>
+                                                        <%for(var i=0; i< countries.length; i++) { var
+                                                            cuntId=countries[i].id; %>
+                                                            <option value="<%= countries[i].id %>">
+                                                                <%= countries[i].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select State</label>
+                                                    <select class="form-control " name="state_id" id="state-select">
+                                                        <option value="" id="optop" selected disabled>Select State
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select City</label>
+                                                    <select class="form-control" name="city_id" id="city-select">
+                                                        <option value="" id="optop" selected disabled>Select City
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Profile Pic</label>
+                                                    <input type="file" name="profile_img" id="profile_img"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">School/University Name</label>
+                                                    <input type="text" name="school_or_university_name"
+                                                        class="form-control" id="school_or_university_name"
+                                                        placeholder="Enter School/University Name">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Password</label>
+                                                    <input type="password" name="password" class="form-control"
+                                                        id="password" placeholder="Enter Password">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <div class="form-group col">
+                                                        <label for="name">Document Upload</label>
+                                                        <input type="file" name="upload_file" id="upload_file"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select Document Type</label>
+                                                    <select class="form-control" name="upload_file_type"
+                                                        id="upload_file_type">
+                                                        <option value="" selected disabled>Select Document Type</option>
+                                                        <option value="Adhaar">Adhaar</option>
+                                                        <option value="Student Id">Student Id</option>
+                                                        <option value="Parent Id">Parent Id</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4>Academic Details</h4>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Grade Studying In</label>
+                                                    <input type="text" name="grade_studying_in" class="form-control"
+                                                        id="grade_studying_in" placeholder="Enter Grade Studying In">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Branch Studying In</label>
+                                                    <input type="text" name="branch_studying_in" class="form-control"
+                                                        id="branch_studying_in" placeholder="Enter Branch Studying In">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Last Aggregate Marks Scored</label>
+                                                    <input type="text" name="last_aggregate_marks" class="form-control"
+                                                        id="last_aggregate_marks"
+                                                        placeholder="Enter Last Aggregate Marks Scored">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Subjects Studying</label>
+                                                    <input type="text" name="subject_stuying" class="form-control"
+                                                        id="subject_stuying" placeholder="Enter Subjects Studying">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="form-group col">
+                                                    <label for="name">Weak Subjects</label>
+                                                    <input type="text" name="weak_subject" class="form-control"
+                                                        id="weak_subject" placeholder="Enter Weak Subjects">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Strong Subjects</label>
+                                                    <input type="text" name="strong_subject" class="form-control"
+                                                        id="strong_subject" placeholder="Enter Strong Subjects">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Hobbies</label>
+                                                    <input type="text" name="hobbies" class="form-control" id="hobbies"
+                                                        placeholder="Enter Hobbies">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="name">Interests</label>
+                                                    <input type="text" name="interest" class="form-control"
+                                                        id="interest" placeholder="Enter Interests">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../partials/footer'); %>
+            <script>
+                $('#country-select').on('change', function () {
+
+                    var newval = $(this).val();
+                    if (newval) {
+
+
+                        $.ajax({
+                            type: "Get",
+                            url: "api/getallstatebycountry?countryId=" + newval,
+                            success: function (result) {
+
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.data;
+                                var output = ['<option value="" >Select State</option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#state-select').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" >Select State</option>'];
+
+                        $('#state-select').html(output.join(''));
+
+                    }
+                });
+
+
+
+                $('#state-select').on('change', function () {
+
+                    var newval = $(this).val();
+                    if (newval) {
+
+
+                        $.ajax({
+                            type: "Get",
+                            url: "api/getallcitybystate?stateId=" + newval,
+                            success: function (result) {
+
+                                var subcat = JSON.stringify(result);
+                                var sub_data = JSON.parse(subcat);
+                                var subObj = sub_data.data;
+                                var output = ['<option value="" >Select City</option>'];
+                                $.each(subObj, function (k, v) {
+                                    var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                    output.push(option)
+                                });
+
+                                $('#city-select').html(output.join(''));
+                            },
+                            error: function (exception) { console.log('Exeption:' + exception); }
+                        });
+                    } else {
+                        var output = ['<option value="" >Select City</option>'];
+
+                        $('#city-select').html(output.join(''));
+
+                    }
+                });
+            </script>

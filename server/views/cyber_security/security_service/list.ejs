@@ -1,0 +1,157 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+            <%- include("../../notify"); %>
+                <%- toasts %>
+
+                    <div class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0">Security Status</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="">
+                        <div class="card-body">
+                            <h4 class="">Security Status Main Title And Description</h4>
+
+                            <form class="" action="/main-service-main-title-update-store" method="POST">
+
+                                <div class="card-body">
+                                    <input type="hidden" value="<%= banner_content?.id %>" name="id">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Title: <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="title" value="<%=banner_content?.title %>"
+                                            class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter Security Status title" required>
+                                    </div>
+
+
+
+                                    <label for="exampleInputPassword1">Description:</label>
+                                    <div class="form-group ">
+
+                                        <textarea name="description" id="description" class="form-control" id="details"
+                                            cols="20" rows="" required><%- banner_content?.description %></textarea>
+                                    </div>
+
+
+
+
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </section>
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Security Status List</h3>
+                                    <% if(list.length < 4) {%>
+                                        <a href="/add-security-service" class="btn btn-primary btn-sm"
+                                            style="float: right;">Add</a>
+                                        <% }%>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Icon</th>
+
+
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(list.length){ list.forEach((element,index)=>{%>
+
+                                                <tr>
+                                                    <td>
+                                                        <%= index+1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= element.title %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%- element.description %>
+
+                                                    </td>
+                                                    <td>
+                                                        <img style="max-height: 50px; min-height: 50px;"
+                                                            src="/uploaded-files/<%=element.icon  %> ">
+                                                    </td>
+
+
+                                                    <td>
+
+                                                        <a href="#" data-value="<%=element.id%>" class="deleteUser"><i
+                                                                class="fa fa-trash-o" style="font-size:25px; color:red"
+                                                                title="delete"></i></a>
+
+                                                        <a
+                                                            href="/update-security-service?securityServiceId=<%= element.id %>"><i
+                                                                class='fas fa-pen-nib' style="font-size:25px;"
+                                                                title="Edit"></i></a>
+                                                    </td>
+
+
+                                                </tr>
+                                                <% }) } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        </div>
+        <script>
+            $(".deleteUser").on("click", function () {
+                swal({
+                    title: "Are you sure want to Delete?",
+                    text: "Once deleted, you will not be able to see this Security Status again!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // console.log("$(this).val()", $(this).val());
+                        var id = $(this).data("value");
+                        // console.log(`/delete-service-box?id=${id}`);
+                        $.ajax({
+                            url: `/delete-security-service?securityServiceId=${id}`,
+                            type: 'GET',
+                            // data: formData,
+                            async: false,
+                            success: function (data) {
+                                swal("Security Status has been deleted!", {
+                                    icon: "success",
+
+                                }).then(() => {
+                                    window.location.reload()
+                                });
+
+
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                });
+            });
+        </script>
+        <%- include('../../partials/footer'); %>

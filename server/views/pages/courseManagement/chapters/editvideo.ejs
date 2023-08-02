@@ -1,0 +1,100 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Chapter Video </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Chapter Video</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/chapter-videos?id=<%= chapter_id %>" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Edit Chapter Video </h3>
+                                    </div>
+
+                                    <form id="videoeditform" action="/chapter-video-update" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="name">Video Title</label>
+                                                    <input type="text" name="title" class="form-control" id="name"
+                                                        placeholder="Enter Title" value="<%= item.title %>">
+                                                    <input type="hidden" name="chapter_id" value="<%= chapter_id %>">
+                                                    <input type="hidden" name="id" value="<%= item.id%>">
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <% if(item.video) {%>
+                                                    <label for="uploadvideo">Uploaded Video</label>
+                                                    <div class="input-group">
+                                                        <video id="uploadvideo" width="200" height="200" controls>
+                                                            <source src="<%= item.video %>" type="video/mp4">
+                                                        </video>
+                                                    </div>
+                                                    <%}%>
+                                                        <label for="video">Upload Video</label>
+                                                        <input type="file" name="chaptervideo" class="form-control"
+                                                            id="video" accept="video/mp4,video/x-m4v,video/*">
+                                                        <input type="hidden" name="oldvideo" value="<%= item.video %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="4" cols="50"><%= item.description %></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>

@@ -1,0 +1,107 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Our Advisory Board</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Our Advisory Board</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Our Advisory Board</h3>
+                                        <a href="/our-advisory-board-list" class="btn btn-light btn-sm"
+                                            style="float: right; color: #000;">Back</a>
+                                    </div>
+                                    <%- toasts %>
+                                        <form id="bannerForm" action="/post-our-advisory-board" method="POST"
+                                            enctype="multipart/form-data">
+
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Name: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="name" class="form-control"
+                                                                id="exampleInputEmail1"
+                                                                placeholder="Enter Advisory Board name" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Designation: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="designation" class="form-control"
+                                                                id="exampleInputEmail1" placeholder="Enter Designation"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Image: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="file" name="image" class="form-control" onchange="return validate_fileupload(this)"
+                                                                id="exampleInputEmail1"
+                                                                placeholder="Enter Advisory Board image" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+                                                <label for="exampleInputPassword1">Message: <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="form-group ">
+
+                                                    <textarea name="message" id="message" class="form-control" cols="20"
+                                                        rows="5" required></textarea>
+                                                </div>
+                                                
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                        </form>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+
+        <script>
+
+            let d = CKEDITOR.replace('message');
+
+        </script>
+        <%- include('../../partials/footer'); %>

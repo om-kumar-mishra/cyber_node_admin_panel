@@ -1,0 +1,161 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Categories</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Category</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <!-- <h1>Course Categories</h1> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/subject-category-create" class="btn btn-primary">Add</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <%- include('../../../partials/error'); %>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Subject Category List</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Name</th>
+                                            <th>Categorie</th>
+                                            <th>Course Categorie</th>
+                                            <th style="min-width: 90px;">Video</th>
+                                            <th>Status</th>
+                                            <th style="min-width: 175px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% for(var j=0; j< subjectData.length; j++) { var
+                                            cId=subjectData[j].category_id; %>
+
+                                            <tr>
+                                                <td>
+                                                    <%= j+ 1 %>
+                                                </td>
+
+                                                <td>
+                                                    <%= subjectData[j].name %>
+                                                </td>
+                                                <td>
+                                                    <%= subjectData[j].category_id ? subjectData[j].categories['name']:'' %>
+                                                </td>
+                                                <td>
+                                                    <%= subjectData[j].course_category_id ? subjectData[j].coursecategories['name'] :'' %>
+                                                </td>
+                                                <td>
+                                                    <% if(subjectData[j].video !=null) { %>
+                                                        <video width="100%" height="auto" controls>
+                                                            <source src="<%= subjectData[j].video %>" type="video/mp4">
+                                                        </video>
+                                                        <%} else{ %>
+                                                            -
+                                                            <% }%>
+
+                                                </td>
+                                                <td>
+                                                    <%if(subjectData[j].status=='A' ) {%>
+                                                        <span class="badge bg-success ">Active</span>
+                                                        <%}else{%>
+                                                            <span class="badge bg-danger">Inactive</span>
+                                                            <%}%>
+                                                </td>
+                                                <td>
+                                                    <a href="/subject-category-edit?id=<%= subjectData[j].id %>"
+                                                        class="btn btn-warning text-white"
+                                                        data-cat-id="<%= subjectData[j].id %>">
+                                                        Edit
+                                                    </a>
+                                                    <a role="button" id="changestatus" class="btn btn-secondary"
+                                                        data-cat-id="<%= subjectData[j].id %>"
+                                                        data-value="<%= subjectData[j].status %>">
+                                                        Change Status
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>
+            <script>
+                $('body').on('click', '#changestatus', function (e) {
+                    e.preventDefault();
+                    const subj_status = $(this).attr("data-value");
+                    const subj_id = $(this).attr("data-cat-id");
+
+                    swal({
+                        title: "Are you sure change Status?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                change_status(subj_id, subj_status);
+
+                                swal("Class Status  Updated Successfully", {
+                                    icon: "success",
+                                }).then(function () {
+                                    location.reload();
+                                });
+
+                            } else {
+                                swal("Your Data is safe!");
+                            }
+                        });
+
+                })
+                function change_status(subj_id, subj_status) {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var rstext = JSON.parse(this.responseText);
+                            var rstext = rstext.message;
+
+                        }
+                    };
+
+                    xmlhttp.open("POST", "/change-subject-status/" + subj_id + "/change", true);
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xmlhttp.send(JSON.stringify({ 'id': subj_id, 'status': subj_status }));
+                }
+            </script>

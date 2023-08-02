@@ -1,0 +1,87 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Update Industry Images </h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Update Industry Images </li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Industry Images </h3>
+                                        <a href="/industry-images-list" class="btn btn-light btn-sm"
+                                            style="float: right; color: #000;">Back</a>
+                                    </div>
+
+                                    <form id="bannerForm" action="/update-industry-images-store" method="POST"
+                                        enctype="multipart/form-data">
+
+                                        <div class="card-body">
+                                            <input type="hidden" value="<%= update.id %>" name="id">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Image:</label>
+                                                        <input type="file" value="<%= update.image %> " name="image" onchange="return validate_fileupload(this)"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter image">
+                                                        <input type="hidden" value="<%= update.image %>"
+                                                            name="oldImage">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <img style="max-height: 100px; min-height: 100px; margin-top: 2px;"
+                                                            src="/uploaded-files/<%= update.image %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+
+        <script>
+
+            let d = CKEDITOR.replace('description');
+
+        </script>
+        <%- include('../../partials/footer'); %>

@@ -1,0 +1,112 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Case Studies</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Case Studies</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+                <%- toasts %>
+
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Add Case Studies</h3>
+                                            <a href="/case-studies-list" class="btn btn-light btn-sm"
+                                                style="float: right; color: #000;">Back</a>
+                                        </div>
+
+                                        <form id="bannerForm" action="/case-studies-store" method="POST"
+                                            enctype="multipart/form-data">
+
+                                            <div class="card-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Title: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="title" class="form-control"
+                                                                id="exampleInputEmail1"
+                                                                placeholder="Enter testimonial name" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Image: <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="file" name="image" class="form-control" onchange="return validate_fileupload(this)"
+                                                                id="exampleInputEmail1"
+                                                                placeholder="Enter testimonial image" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <label for="exampleInputPassword1">Description: <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="form-group ">
+
+                                                    <textarea name="description" id="description" class="form-control"
+                                                        cols="20" rows="3" required></textarea>
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+        </div>
+
+        <script>
+
+            let d = CKEDITOR.replace('description');
+
+        </script>
+        <%- include('../../partials/footer'); %>

@@ -1,0 +1,152 @@
+<%- include('../../../partials/header'); %>
+    <%- include('../../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Subscription Plan</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Subscription Plan</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <!-- <h1>Course Categories</h1> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="add-subscription-plan" class="btn btn-primary">Add</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+           
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Subscription Plan List</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Plan Name</th>
+                                        <th>Plan Price</th>
+                                        <th>Description</th>
+                                        <th>Expired Date</th>
+                                        <th>Created Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(subscriptionplan.length){ for(var i=0; i< subscriptionplan.length; i++) { %>
+                                        <tr>
+                                            <td>
+                                                <%= i+1 %>
+                                            </td>
+                                            <td>
+                                                <%= subscriptionplan[i].plan_name %>
+                                            </td>
+                                            <td>
+                                                <%= subscriptionplan[i].plan_price %>
+                                            </td>
+                                            <td>
+                                                <%= subscriptionplan[i].description %>
+                                            </td>
+                                            <td>
+                                                <%= subscriptionplan[i].expiredAt %>
+                                            </td>
+                                            <td>
+                                                <%= subscriptionplan[i].createdAt %>
+                                            </td>
+                                            <td>
+                                                <%if(subscriptionplan[i].status==='I') {%>
+                                                    <span class="badge bg-danger ">Inactive</span>
+                                                <%}else{%>
+                                                    <span class="badge bg-success">Active</span>
+                                                <%}%>
+                                            </td>
+                                            <td>
+                                                <a href="/edit-subscription-plan?id=<%= subscriptionplan[i].id %>"
+                                                    class="btn btn-warning text-white"
+                                                    data-cat-id="<%= subscriptionplan[i].id %>">
+                                                    Edit
+                                                </a>
+                                                <a role="button" id="changestatus" class="btn btn-secondary"
+                                                    data-cat-id="<%= subscriptionplan[i].id %>"
+                                                    data-value="<%= subscriptionplan[i].status %>">
+                                                    Change Status
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% }} %>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <%- include('../../../partials/footer'); %>
+        <script>
+            $('body').on('click', '#changestatus', function (e) {
+                e.preventDefault();
+                const subj_status = $(this).attr("data-value");
+                const subj_id = $(this).attr("data-cat-id");
+
+                swal({
+                    title: "Are you sure change Status?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            change_status(subj_id, subj_status);
+
+                            swal("Class Status  Updated Successfully", {
+                                icon: "success",
+                            }).then(function () {
+                                location.reload();
+                            });
+
+                        } else {
+                            swal("Your Data is safe!");
+                        }
+                    });
+
+            })
+            function change_status(subj_id, subj_status) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var rstext = JSON.parse(this.responseText);
+                        var rstext = rstext.message;
+
+                    }
+                };
+
+                xmlhttp.open("POST", "/change-subscription-plan-status/" + subj_id + "/change", true);
+                xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlhttp.send(JSON.stringify({ 'id': subj_id, 'status': subj_status }));
+            }
+        </script>

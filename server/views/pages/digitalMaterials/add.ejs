@@ -1,0 +1,260 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Digital Materials</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Digital Materials</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../../partials/error'); %>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="/chapters" class="btn btn-primary">Back</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Digital Materials</h3>
+                                    </div>
+                                    <form id="digitalMaterialsForm" action="/digital-material-insert" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Students</label>
+                                                    <select class="form-control" name="student_id" id="student_id">
+                                                        <option value="" selected disabled>Select Students</option>
+                                                        <%for(var i=0; i< students.length; i++) { %>
+                                                            <option value="<%= students[i].id %>">
+                                                                <%= students[i].firstName+' '+students[i].lastName %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select Categories</label>
+                                                    <select class="form-control" name="category_id" id="category-id">
+                                                        <option value="" selected disabled>Select Categories</option>
+                                                        <%for(var i=0; i< categories.length; i++) { %>
+                                                            <option value="<%= categories[i].id %>">
+                                                                <%= categories[i].name %>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Course Categories</label>
+                                                    <select class="form-control" name="course_category_id"
+                                                        id="course-category-id">
+                                                        <option value="">select course category</option>
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col">
+                                                    <label>Select Subject Categories</label>
+                                                    <select class="form-control" name="subject_category_id"
+                                                        id="subject_category_id">
+                                                        <option value="">Select Subject Categories</option>
+
+                                                    </select>
+
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label>Select Chapter</label>
+                                                    <select class="form-control" name="chapter_id"
+                                                        id="chapter_id">
+                                                        <option value="">Select Chapter</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Select File Type</label>
+                                                    <select class="form-control" name="file_type"
+                                                        id="file_type">
+                                                        <option value="image" selected>Image</option>
+                                                        <option value="docs">Docs</option>
+                                                        <option value="audio">Audio</option>
+                                                    </select>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col image" >
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="image"
+                                                        placeholder="Enter Digital Material Name" accept="image/png, image/jpeg, image/*">
+                                                </div>
+                                                <!-- <div class="form-group col" style="display:none;">
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="pdf"
+                                                        placeholder="Enter Digital Material Name" accept="video/mp4,video/x-m4v,video/*">
+                                                </div> -->
+                                                <div class="form-group col docs" style="display:none;">
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="docs"
+                                                        placeholder="Enter Digital Material Name" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                                </div>
+                                                <div class="form-group col audio" style="display:none;">
+                                                    <label for="name">Digital Material</label>
+                                                    <input type="file" name="upload_file" class="form-control" id="audio"
+                                                        placeholder="Enter Digital Material Name" accept="audio/*">
+                                                </div>
+                                                <div class="form-group col" >
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" name="description"
+                                                        rows="4" cols="50"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        </div>
+        <%- include('../../partials/footer'); %>
+        <script>
+            $('#category-id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval);
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/course_category/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Course Category </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#course-category-id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Course Category</option>'];
+
+                    $('#course-category-id').html(output.join(''));
+
+                }
+            });
+
+            $('#course-category-id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval);
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/subject_category/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Subject Category </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#subject_category_id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Subject Category</option>'];
+
+                    $('#subject_category_id').html(output.join(''));
+
+                }
+            });
+            $('#subject_category_id').on('change', function () {
+                var newval = $(this).val();
+                console.log(newval, 'subject-category-id');
+                if (newval) {
+                    $.ajax({
+                        type: "Get",
+                        url: "api/chapter/" + newval,
+                        success: function (result) {
+                            var subcat = JSON.stringify(result);
+                            var sub_data = JSON.parse(subcat);
+                            var subObj = sub_data.item;
+                            var output = ['<option value="" selected desabled>Select Chapter </option>'];
+                            $.each(subObj, function (k, v) {
+                                var option = '<option value="' + v.id + '">' + v.name + '</option>';
+                                output.push(option)
+                            });
+
+                            $('#chapter_id').html(output.join(''));
+                        },
+                        error: function (exception) { console.log('Exeption:' + exception); }
+                    });
+                } else {
+                    var output = ['<option value="" selected desabled>Select Chapter</option>'];
+
+                    $('#chapter_id').html(output.join(''));
+
+                }
+            });
+
+            $('#file_type').on('change', function () {
+                var videoType = $(this).val();
+                console.log(videoType);
+
+                if (videoType.length > 0) {
+                    if (videoType == 'image') {
+                        $('.image').show();
+                        $('.audio').hide()
+                        $('.docs').hide()
+                    } else if(videoType == 'docs') {
+                        $('.docs').show();
+                        $('.image').hide()
+                        $('.audio').hide()
+                    } else if(videoType == 'audio') {
+                        $('.audio').show();
+                        $('.docs').hide()
+                        $('.image').hide()
+                    }
+
+                } else {
+                    $('.image').hide();
+                    
+                }
+
+            });
+        </script>

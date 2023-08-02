@@ -1,0 +1,110 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+    
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Update Why We Count</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active"> Update Why We Count</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %> 
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <a href="/why-we-count-list" class="btn btn-primary">Back</a>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+          
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Update Why We Count</h3>
+                                            </div>
+
+                                            <form id="bannerForm" action="/update-why-we-count-store" method="POST" >
+                                              <input type="hidden" value="<%= data.id %>" name="whyWeCountId" >
+                                                 <div class="card-body">
+                                                         
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Customers Served Globally*</label>
+                                   
+                                                        <input type="number" value="<%= data.customers_served %>" name="customer_served" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter Customers Served Globally " required>
+                                                    </div>
+
+                                                   
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Cybersecurity Projects*</label>
+                                   
+                                                        <input type="number" value="<%= data.cybersecurity_projects %>" name="cybersecurity_project" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter  Cybersecurity Projects" required>
+                                                    </div>
+                                                
+                                            
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Customer Retention Rate*</label>
+                                   
+                                                        <input type="number" value="<%= data.customer_retention %>" name="customer_retention" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter  Customer Retention Rate " required>
+                                                    </div>
+                                                   
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Cybersecurity Experts*</label>
+                                   
+                                                        <input type="number" value="<%= data.cybersecurity_experts %>" name="cybersecurity_experts" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter  Customer Retention Rate" required>
+                                                    </div>
+                                                
+                                                
+
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </section>
+
+        </div>
+        
+        <script>
+            
+        let d= CKEDITOR.replace('description');
+        
+        </script>
+        <%- include('../../partials/footer'); %>
+        

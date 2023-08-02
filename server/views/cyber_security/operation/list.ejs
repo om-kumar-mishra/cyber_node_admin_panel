@@ -1,0 +1,166 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+        <div class="content-wrapper">
+            <%- include("../../notify"); %>
+                <%- toasts %>
+
+
+
+
+
+
+                    <!-- listing of cyber security -->
+
+
+
+                    <!-- listing of cyber security -->
+
+
+
+                    <div class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0">Typical Attacks </h1>
+                                </div>
+                                <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Typical Attacks </li>
+                            </ol>
+                        </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <section>
+                        <div class="card-body">
+
+                            <h4>Typical Attacks
+                                Title And Description</h4>
+                            <form id="bannerForm" action="/typical-attacks-main-title-update-store" method="POST">
+
+                                <div class="card-body">
+                                    <input type="hidden" value="<%= operation_title?.id %>" name="id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Main Title: <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" value="<%= operation_title?.title %> " name="title"
+                                                    class="form-control" id="exampleInputEmail1"
+                                                    placeholder="Enter Typical Attacks title" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <label for="exampleInputPassword1">Main Description:</label>
+                                    <div class="form-group ">
+
+                                        <textarea name="description" id="description" class="form-control" id="details"
+                                            cols="20" rows="3" required><%- operation_title?.description %></textarea>
+                                    </div>
+
+
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </section>
+
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Typical Attacks List</h3>
+                                    <a href="/typical-attacks" class="btn btn-primary btn-sm"
+                                        style="float: right;">Add</a>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Title</th>
+
+
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(list.length){ list.forEach((element,index)=>{%>
+
+                                                <tr>
+                                                    <td>
+                                                        <%= index+1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%- element.title %>
+                                                    </td>
+
+
+                                                    <td>
+                                                        <a href="#" data-value="<%=element.id%>" class="deleteUser"><i
+                                                                class="fa fa-trash-o" style="font-size:25px; color:red"
+                                                                title="delete"></i></a>
+
+                                                        <a href="/typical-attacks-update?id=<%= element.id %>"><i
+                                                                class='fas fa-pen-nib' style="font-size:25px;"
+                                                                title="Edit"></i></a>
+                                                    </td>
+
+
+                                                </tr>
+                                                <% }) } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        </div>
+        <script>
+            $(".deleteUser").on("click", function () {
+                swal({
+                    title: "Are you sure want to Delete?",
+                    text: "Once deleted, you will not be able to see this content again!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // console.log("$(this).val()", $(this).val());
+                        var id = $(this).data("value");
+                        // console.log(`/delete-service-box?id=${id}`);
+                        $.ajax({
+                            url: `/delete-typical-attacks?id=${id}`,
+                            type: 'GET',
+                            // data: formData,
+                            async: false,
+                            success: function (data) {
+                                swal("Content has been deleted!", {
+                                    icon: "success",
+
+                                }).then(() => {
+                                    window.location.reload()
+                                });
+
+
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                });
+            });
+        </script>
+        <%- include('../../partials/footer'); %>

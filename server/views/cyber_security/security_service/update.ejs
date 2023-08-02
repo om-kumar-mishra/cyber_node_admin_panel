@@ -1,0 +1,115 @@
+<%- include('../../partials/header'); %>
+    <%- include('../../partials/sidebar'); %>
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Update Security Status</h1>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Update Security Status</li>
+                            </ol>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <%- include("../../notify"); %>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Security Status</h3>
+                                        <a href="/get-banner-content-list" class="btn btn-light btn-sm"
+                                            style="float: right; color: #000;">Back</a>
+                                    </div>
+
+                                    <form id="bannerForm" action="/post-update-security-service" method="POST"
+                                        enctype="multipart/form-data">
+
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Title: <span class="text-danger">*</span></label>
+                                                        <input type="text" value="<%= update_data.title %>" name="title"
+                                                            class="form-control" id="exampleInputEmail1"
+                                                            placeholder="Enter Security Status title" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                                *
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="hidden" value="<%= update_data.id %>"
+                                                            name="securityServiceId">
+                                                        <label for="exampleInputEmail1">Icon</label>
+                                                        <input type="file" name="icon" class="form-control" onchange="return validate_fileupload(this)"
+                                                            id="exampleInputEmail1" placeholder="Enter Bannner title">
+
+                                                        <input type="hidden" value="<%= update_data.icon %>"
+                                                            name="oldImage">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <img style="max-height: 100px; min-height: 100px; margin-top: 2px;"
+                                                            src="/uploaded-files/<%= update_data.icon %> ">
+                                                    </div>
+                                                </div>
+                                                *
+                                            </div>
+
+
+
+
+
+
+
+
+                                            <label for="exampleInputPassword1">Description</label>
+                                            <div class="form-group ">
+
+                                                <textarea name="description" id="description" class="form-control"
+                                                    id="details" cols="20" rows="3"
+                                                    required><%- update_data.description %></textarea>
+                                            </div>
+
+
+
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+        </div>
+
+        <script>
+
+            let d = CKEDITOR.replace('description');
+
+        </script>
+        <%- include('../../partials/footer'); %>
